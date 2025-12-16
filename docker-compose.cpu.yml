@@ -1,5 +1,8 @@
 # Docker Compose for CPU-only deployment (no GPU required)
 # Use this if you don't have an NVIDIA GPU
+#
+# Note: This configuration uses 'latest' tags for easier updates and development.
+# For production deployments, consider pinning to specific version tags.
 
 services:
   # HAProxy - OpenAI API Proxy

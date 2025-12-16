@@ -1,3 +1,14 @@
+# Docker Compose configuration for OpenAI Proxy with GPU support
+# 
+# Note: This configuration uses 'latest' tags for easier updates and development.
+# For production deployments, consider pinning to specific version tags.
+#
+# Available images:
+# - haproxy:2.8-alpine (or specific version like 2.8.3-alpine)
+# - fedirz/faster-whisper-server:latest-cuda (check Docker Hub for versioned tags)
+# - ollama/ollama:latest (or specific version)
+# - ghcr.io/remsky/kokoro-fastapi-gpu:latest (or specific version like v0.2.1)
+
 services:
   # HAProxy - OpenAI API Proxy
   openai-proxy:
