@@ -54,6 +54,11 @@ export OPENAI_BASE_URL=http://localhost:2020/v1
 
 **That's it!** All services are now running with GPU acceleration.
 
+**No GPU?** Use the CPU-only version:
+```bash
+docker compose -f docker-compose.cpu.yml up -d
+```
+
 📖 **Full Docker Deployment Guide**: See [DOCKER_DEPLOYMENT.md](DOCKER_DEPLOYMENT.md) for detailed instructions, troubleshooting, and advanced configuration.
 
 **Useful Make Commands:**

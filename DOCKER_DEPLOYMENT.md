@@ -285,6 +285,26 @@ TTS_PORT=8881
 ### Use Different Services
 To use OpenAI's services for specific endpoints instead of local ones, modify `openai-proxy-docker.cfg` to uncomment the OpenAI backends and restart the proxy.
 
+### CPU-Only Mode (No GPU)
+If you don't have an NVIDIA GPU or want to run on CPU only:
+
+```bash
+# Use the CPU-only compose file
+docker compose -f docker-compose.cpu.yml up -d
+
+# Or set default Whisper model to a smaller one for better CPU performance
+echo "WHISPER_MODEL=Systran/faster-whisper-tiny" >> .env
+docker compose -f docker-compose.cpu.yml up -d
+```
+
+The CPU-only configuration:
+- Uses `fedirz/faster-whisper-server:latest-cpu` for Whisper
+- Uses `ghcr.io/remsky/kokoro-fastapi-cpu:latest` for TTS
+- Ollama works on CPU by default (just slower)
+- Performance will be significantly slower than GPU mode
+
+**Note**: CPU-only mode is suitable for testing but not recommended for production use.
+
 ## Troubleshooting
 
 ### GPU Not Detected
@@ -368,15 +388,6 @@ docker volume inspect openai-proxy_whisper-models
 ```
 
 ## Advanced Configuration
-
-### CPU-Only Mode
-If you don't have an NVIDIA GPU, you can modify `docker-compose.yml`:
-
-1. Remove all `deploy.resources.reservations.devices` sections
-2. Use CPU-only images:
-   - Whisper: `fedirz/faster-whisper-server:latest-cpu`
-   - Kokoro: `ghcr.io/remsky/kokoro-fastapi-cpu:latest`
-   - Ollama: Works on CPU by default (will be slower)
 
 ### Multi-GPU Setup
 To use specific GPUs, modify the `docker-compose.yml`:
