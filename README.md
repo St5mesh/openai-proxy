@@ -32,19 +32,40 @@ The easiest way to get started is with Docker Compose, which brings up the proxy
 git clone https://github.com/St5mesh/openai-proxy.git
 cd openai-proxy
 
-# Start all services (HAProxy, Whisper, Ollama, TTS)
+# Run the quick-start script (handles everything automatically)
+./quick-start.sh
+
+# Or use make commands
+make quick-start
+```
+
+The quick-start script will:
+- Check for Docker and GPU availability
+- Start all services (HAProxy, Whisper, Ollama, TTS)
+- Pull the default Ollama model (llama2)
+- Display configuration instructions
+
+**Manual start:**
+```bash
 docker compose up -d
-
-# Pull an Ollama model
 docker compose exec ollama ollama pull llama2
-
-# Configure your client
 export OPENAI_BASE_URL=http://localhost:2020/v1
 ```
 
 **That's it!** All services are now running with GPU acceleration.
 
 📖 **Full Docker Deployment Guide**: See [DOCKER_DEPLOYMENT.md](DOCKER_DEPLOYMENT.md) for detailed instructions, troubleshooting, and advanced configuration.
+
+**Useful Make Commands:**
+```bash
+make help         # Show all available commands
+make start        # Start all services
+make stop         # Stop all services
+make logs         # View logs
+make status       # Check service status
+make pull-models  # Pull Ollama models
+make gpu          # Monitor GPU usage
+```
 
 ## Manual Usage
 

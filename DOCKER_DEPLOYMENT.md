@@ -54,13 +54,53 @@ docker run --rm --gpus all nvidia/cuda:12.0.0-base-ubuntu22.04 nvidia-smi
 
 ## Quick Start
 
-### 1. Clone the Repository
+### Option 1: Automated Setup (Recommended)
+
+Run the quick-start script that handles everything for you:
+
+```bash
+git clone https://github.com/St5mesh/openai-proxy.git
+cd openai-proxy
+./quick-start.sh
+```
+
+This script will:
+- Check for Docker and GPU availability
+- Start all services
+- Wait for services to be healthy
+- Pull the default Ollama model (llama2)
+- Display configuration instructions
+
+### Option 2: Using Make
+
+If you prefer using Make commands:
+
+```bash
+git clone https://github.com/St5mesh/openai-proxy.git
+cd openai-proxy
+make quick-start
+```
+
+Or use individual make targets:
+```bash
+make start        # Start all services
+make pull-models  # Pull Ollama models
+make logs         # View logs
+make status       # Check service status
+make stop         # Stop services
+```
+
+See `make help` for all available commands.
+
+### Option 3: Manual Setup
+
+#### 1. Clone the Repository
 ```bash
 git clone https://github.com/St5mesh/openai-proxy.git
 cd openai-proxy
 ```
 
-### 2. Configure Environment (Optional)
+#### 2. Configure Environment (Optional)
 Copy the example environment file and customize if needed:
 ```bash
 cp .env.example .env
@@ -73,7 +113,7 @@ Default ports:
 - Ollama: `11434` (internal)
 - TTS: `8880` (internal)
 
-### 3. Start All Services
+#### 3. Start All Services
 ```bash
 docker compose up -d
 ```
@@ -84,7 +124,7 @@ This will:
 - Start all services with GPU acceleration
 - Configure networking between services
 
-### 4. Monitor Startup
+#### 4. Monitor Startup
 Watch the logs to see when services are ready:
 ```bash
 docker compose logs -f
@@ -95,7 +135,7 @@ First startup will take longer as models are downloaded:
 - Ollama: Ready immediately, models pulled on first use
 - TTS: Downloads Kokoro TTS models (~500MB)
 
-### 5. Pull an Ollama Model
+#### 5. Pull an Ollama Model
 Ollama doesn't come with models pre-installed. Pull a model:
 ```bash
 # Pull a small model for testing
@@ -107,7 +147,7 @@ docker compose exec ollama ollama pull llama3.1:8b
 
 Available models: https://ollama.com/library
 
-### 6. Verify Services
+#### 6. Verify Services
 Check that all services are running:
 ```bash
 docker compose ps
@@ -121,14 +161,14 @@ curl http://localhost:2020/health
 # Should return: healthy
 ```
 
-### 7. Configure Your Client
+#### 7. Configure Your Client
 Set the OpenAI base URL in your client application:
 ```bash
 export OPENAI_BASE_URL=http://localhost:2020/v1
 export OPENAI_API_BASE=http://localhost:2020/v1
 ```
 
-### 8. Test the Endpoints (Optional)
+#### 8. Test the Endpoints (Optional)
 If you have the test script, you can verify all endpoints:
 ```bash
 export OPENAI_API_KEY=dummy  # Not needed for local services
