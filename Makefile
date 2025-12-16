@@ -35,9 +35,10 @@ pull-models: ## Pull default Ollama model (llama2)
 test: ## Run endpoint tests (requires OPENAI_API_KEY)
 	@if [ -z "$$OPENAI_API_KEY" ]; then \
 		echo "Warning: OPENAI_API_KEY not set. Using dummy key."; \
-		export OPENAI_API_KEY=dummy; \
+		OPENAI_API_KEY=dummy ./bin/test-endpoints; \
+	else \
+		./bin/test-endpoints; \
 	fi
-	@./bin/test-endpoints
 
 clean: ## Stop services and remove volumes (deletes all models)
 	@echo "WARNING: This will remove all volumes including downloaded models!"

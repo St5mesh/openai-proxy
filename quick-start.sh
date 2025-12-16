@@ -80,7 +80,7 @@ echo -e "${BLUE}Waiting for services to be ready...${NC}"
 max_wait=120
 elapsed=0
 while [ $elapsed -lt $max_wait ]; do
-    if docker compose ps | grep -q "healthy"; then
+    if docker compose ps | grep -q '(healthy)'; then
         sleep 5
         echo -e "${GREEN}✓ Services are healthy${NC}"
         break
@@ -100,8 +100,8 @@ fi
 echo ""
 echo -e "${BLUE}Checking if Ollama has models...${NC}"
 
-# Check if Ollama has any models
-if docker compose exec -T ollama ollama list 2>/dev/null | grep -q "NAME"; then
+# Check if Ollama has any models (excluding just the header)
+if docker compose exec -T ollama ollama list 2>/dev/null | grep -v '^NAME' | grep -q .; then
     echo -e "${GREEN}✓ Ollama models are already installed${NC}"
 else
     echo -e "${YELLOW}No Ollama models found. Pulling llama2...${NC}"

@@ -33,8 +33,10 @@ Install the NVIDIA Container Toolkit to enable GPU access in Docker containers:
 **Ubuntu/Debian:**
 ```bash
 distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
-curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
-curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+curl -s -L https://nvidia.github.io/libnvidia-container/$distribution/libnvidia-container.list | \
+  sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
+  sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
 
 sudo apt-get update
 sudo apt-get install -y nvidia-container-toolkit
@@ -255,7 +257,13 @@ You should see the Docker containers utilizing GPU memory and compute when proce
 ### Change Whisper Model
 Edit `.env` file:
 ```bash
-# Options: tiny, base, small, medium, large-v2, large-v3
+# Available models (use full HuggingFace path):
+# Systran/faster-whisper-tiny
+# Systran/faster-whisper-base
+# Systran/faster-whisper-small
+# Systran/faster-whisper-medium
+# Systran/faster-whisper-large-v2
+# Systran/faster-whisper-large-v3 (default)
 WHISPER_MODEL=Systran/faster-whisper-medium
 ```
 

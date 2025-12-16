@@ -15,7 +15,7 @@ services:
       - tts
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "wget", "-O-", "-S", "127.0.0.1:2020/health"]
+      test: ["CMD", "sh", "-c", "wget -O- -S http://127.0.0.1:2020/health 2>&1 | grep -q 'healthy'"]
       interval: 30s
       timeout: 10s
       retries: 3
