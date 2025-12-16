@@ -1,0 +1,23 @@
+# Environment files
+.env
+
+# Test outputs
+test.mp3
+*.mp3
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Temporary files
+/tmp/

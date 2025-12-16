@@ -23,7 +23,30 @@ Feel free to try it out with Whisper running on my M4 Mac Mini: https://api.ailo
 
 Uses [HAProxy](https://haproxy.org), the Reliable, High Performance TCP/HTTP Load Balancer.
 
-## Usage
+## 🚀 Quick Start with Docker Compose (Recommended)
+
+The easiest way to get started is with Docker Compose, which brings up the proxy and all required services with GPU acceleration in a single command:
+
+```bash
+# Clone the repository
+git clone https://github.com/St5mesh/openai-proxy.git
+cd openai-proxy
+
+# Start all services (HAProxy, Whisper, Ollama, TTS)
+docker compose up -d
+
+# Pull an Ollama model
+docker compose exec ollama ollama pull llama2
+
+# Configure your client
+export OPENAI_BASE_URL=http://localhost:2020/v1
+```
+
+**That's it!** All services are now running with GPU acceleration.
+
+📖 **Full Docker Deployment Guide**: See [DOCKER_DEPLOYMENT.md](DOCKER_DEPLOYMENT.md) for detailed instructions, troubleshooting, and advanced configuration.
+
+## Manual Usage
 
 ### 1. Configure Your Environment
 
